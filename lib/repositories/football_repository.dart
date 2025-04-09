@@ -49,12 +49,14 @@ class FootballRepository {
 
       List<dynamic> mapTeamPlayers = responseConverted['squad'];
 
+
       List<PlayerTeam> teamPlayers = mapTeamPlayers
           .map(
             (playerMap) => PlayerTeam(
               id: playerMap['id'],
               name: playerMap['name'],
               position: playerMap['position'],
+              dateOfBirth: playerMap['dateOfBirth']
             ),
           )
           .toList();
