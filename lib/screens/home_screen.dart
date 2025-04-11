@@ -1,8 +1,8 @@
-import 'package:consumo_api_flutter/screens/team_details_screen.dart';
-import 'package:consumo_api_flutter/widgets/team_widget.dart';
+import 'package:consumo_api_flutter/viewmodels/home_viewmodel.dart';
 import 'package:flutter/material.dart';
-import '../services/football_service.dart';
 import '../models/team_model.dart';
+import '../widgets/team_widget.dart';
+// import 'team_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FootballService footballService = FootballService();
+  final HomeViewmodel homeViewmodel = HomeViewmodel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: FutureBuilder<List<TeamModel>>(
-          future: footballService.getAllBrasiliansTeams(),
+          future: homeViewmodel.getAllTeams(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -61,17 +61,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: teams.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(0,8,0,8),
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                     child: TeamWidget(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TeamDetailsScreen(
-                              teamModel: teams[index],
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => TeamDetailsScreen(
+                        //       teamModel: teams[index],
+                        //     ),
+                        //   ),
+                        // );
                       },
                       footballTeam: teams[index],
                     ),
