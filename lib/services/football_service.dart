@@ -7,10 +7,10 @@ import '../utils/api_key.dart';
 class FootballService {
   Map<String, String> header = {'X-Auth-Token': apiToken};
 
-  Future<List<TeamModel>> getAllTeams(String league) async {
+  Future<List<TeamModel>> getAllTeams() async {
     try {
       String response = (await http.get(
-        Uri.parse('http://api.football-data.org/v4/competitions/$league/teams'),
+        Uri.parse('http://api.football-data.org/v4/competitions/PL/teams'),
         headers: header,
       ))
           .body;
@@ -34,30 +34,30 @@ class FootballService {
     }
   }
 
-  // Future<List<PlayerModel>> getAllPlayersForOneTeam(int teamId) async {
-  //   try {
-  //     String response = (await http.get(
-  //       Uri.parse('http://api.football-data.org/v4//teams/$teamId'),
-  //       headers: header,
-  //     ))
-  //         .body;
+  Future<List<PlayerModel>> getAllPlayersForOneTeam(int teamId) async {
+    try {
+      String response = (await http.get(
+        Uri.parse('http://api.football-data.org/v4//teams/$teamId'),
+        headers: header,
+      ))
+          .body;
 
-  //     Map<String, dynamic> responseConverted = jsonDecode(response);
+      Map<String, dynamic> responseConverted = jsonDecode(response);
 
-  //     List<dynamic> mapTeamPlayers = responseConverted['squad'];
+      List<dynamic> mapTeamPlayers = responseConverted['squad'];
 
-  //     List<PlayerModel> teamPlayers = mapTeamPlayers
-  //         .map(
-  //           (playerMap) => PlayerModel(
-  //             id: playerMap['id'],
-  //             name: playerMap['name'],
-  //             position: playerMap['position'],
-  //           ),
-  //         )
-  //         .toList();
-  //     return teamPlayers;
-  //   } catch (e) {
-  //     throw Exception('$e');
-  //   }
-  // }
+      List<PlayerModel> teamPlayers = mapTeamPlayers
+          .map(
+            (playerMap) => PlayerModel(
+              id: playerMap['id'],
+              name: playerMap['name'],
+              position: playerMap['position'],
+            ),
+          )
+          .toList();
+      return teamPlayers;
+    } catch (e) {
+      throw Exception('$e');
+    }
+  }
 }

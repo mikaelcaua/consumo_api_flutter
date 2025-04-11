@@ -2,6 +2,7 @@ import 'package:consumo_api_flutter/viewmodels/home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import '../models/team_model.dart';
 import '../widgets/team_widget.dart';
+import 'team_details_screen.dart';
 // import 'team_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -64,14 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                     child: TeamWidget(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => TeamDetailsScreen(
-                        //       teamModel: teams[index],
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TeamDetailsScreen(
+                              teamModel: teams[index],
+                            ),
+                          ),
+                        );
                       },
                       footballTeam: teams[index],
                     ),
