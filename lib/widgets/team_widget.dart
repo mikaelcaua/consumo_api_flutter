@@ -6,12 +6,9 @@ class TeamWidget extends StatelessWidget {
   const TeamWidget({
     super.key,
     required this.footballTeam,
-    required this.onTap,
   });
 
   final TeamModel footballTeam;
-  final Function onTap;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,13 +29,6 @@ class TeamWidget extends StatelessWidget {
           Text(
             footballTeam.name,
             style: TextStyle(color: Colors.white),
-          ),
-          IconButton(
-            onPressed: () => onTap(),
-            icon: Icon(
-              Icons.chevron_right,
-              color: Colors.white,
-            ),
           ),
         ],
       ),
