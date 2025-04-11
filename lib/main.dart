@@ -1,7 +1,11 @@
-import 'package:consumo_api_flutter/repositories/football_repository.dart';
+import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
-void main() async{
-  FootballRepository footballRepository = FootballRepository();
-
-  print(await footballRepository.getAllPlayersForOneTeam(1783));
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    ),
+  );
 }

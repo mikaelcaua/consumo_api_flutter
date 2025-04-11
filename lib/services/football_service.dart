@@ -1,18 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../models/team_model.dart';
+import '../models/player_model.dart';
+import '../utils/api_key.dart';
 
-import '../models/football_team.dart';
-import '../models/player_team.dart';
-import '../utils/endpoints.dart';
-import '../utils/keys/api_key.dart';
-
-class FootballRepository {
+class FootballService {
   Map<String, String> header = {'X-Auth-Token': apiToken};
 
-  Future<List<FootballTeam>> getAllBrasiliansTeams() async {
+  Future<List<TeamModel>> getAllBrasiliansTeams() async {
     try {
       String response = (await http.get(
-        Uri.parse('$baseUrl/competitions/BSA/teams'),
+        Uri.parse('http://api.football-data.org/v4/competitions/BSA/teams'),
         headers: header,
       ))
           .body;
@@ -21,26 +19,25 @@ class FootballRepository {
 
       List<dynamic> mapBrasiliansTeams = responseConverted['teams'];
 
-      List<FootballTeam> brasiliansTeams = mapBrasiliansTeams
+      List<TeamModel> brasiliansTeams = mapBrasiliansTeams
           .map(
-            (teamMap) => FootballTeam(
+            (teamMap) => TeamModel(
               id: teamMap['id'],
               name: teamMap['shortName'],
               imageUrl: teamMap['crest'],
             ),
           )
           .toList();
-
       return brasiliansTeams;
     } catch (e) {
       throw Exception('Não foi possível buscar os times: $e');
     }
   }
 
-  Future<dynamic> getAllPlayersForOneTeam(int teamId) async {
+  Future<List<PlayerModel>> getAllPlayersForOneTeam(int teamId) async {
     try {
       String response = (await http.get(
-        Uri.parse('$baseUrl/teams/$teamId'),
+        Uri.parse('http://api.football-data.org/v4//teams/$teamId'),
         headers: header,
       ))
           .body;
@@ -49,21 +46,18 @@ class FootballRepository {
 
       List<dynamic> mapTeamPlayers = responseConverted['squad'];
 
-
-      List<PlayerTeam> teamPlayers = mapTeamPlayers
+      List<PlayerModel> teamPlayers = mapTeamPlayers
           .map(
-            (playerMap) => PlayerTeam(
-              id: playerMap['id'],
-              name: playerMap['name'],
-              position: playerMap['position'],
-              dateOfBirth: playerMap['dateOfBirth']
-            ),
+            (playerMap) => PlayerModel(
+                id: playerMap['id'],
+                name: playerMap['name'],
+                position: playerMap['position'],
+                dateOfBirth: playerMap['dateOfBirth']),
           )
           .toList();
-
       return teamPlayers;
     } catch (e) {
-      throw Exception('Não foi possível buscar os jogadores: $e');
+      throw Exception('$e');
     }
   }
 }
