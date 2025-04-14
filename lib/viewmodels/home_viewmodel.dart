@@ -4,7 +4,7 @@ import '../models/team_model.dart';
 
 class HomeViewmodel {
   final FootballService footballService = FootballService();
-  Future<List<TeamModel>> getAllTeams() async {
-    return footballService.getAllTeams();
+  Future<List<TeamModel>> getAllTeams(String league, int season) async {
+    return footballService.getAllTeams(league, season);
   }
 }

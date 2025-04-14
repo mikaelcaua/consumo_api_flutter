@@ -18,7 +18,7 @@ class TeamWidget extends StatelessWidget {
           Radius.circular(15),
         ),
       ),
-      padding: const EdgeInsets.fromLTRB(8, 20, 8, 20),
+      padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

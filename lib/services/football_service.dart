@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/team_model.dart';
-import '../utils/api_key.dart';
 
 class FootballService {
-  Map<String, String> header = {'X-Auth-Token': apiToken};
-
-  Future<List<TeamModel>> getAllTeams() async {
+  Future<List<TeamModel>> getAllTeams(String league, int season) async {
     try {
       String response = (await http.get(
-        Uri.parse('http://api.football-data.org/v4/competitions/PL/teams'),
-        headers: header,
+        Uri.parse('http://api.football-data.org/v4/competitions/$league/teams?season=$season'),
+        headers: {
+          'X-Auth-Token': 'SUA CHAVE',
+
+        },
       ))
           .body;
 
       Map<String, dynamic> responseConverted = jsonDecode(response);
+      print(responseConverted);
 
       List<dynamic> mapBrasiliansTeams = responseConverted['teams'];
 

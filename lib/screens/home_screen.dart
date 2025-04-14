@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Times Brasileiros',
+          'Times',
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
@@ -28,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
         child: FutureBuilder<List<TeamModel>>(
-          future: homeViewmodel.getAllTeams(),
+          future: homeViewmodel.getAllTeams('BSA', 2024),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
-              );
+              ); 
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
